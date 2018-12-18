@@ -1,0 +1,8 @@
+bs4==0.0.1
+dash==0.35.0
+dash-core-components==0.41.0
+dash-html-components==0.13.4
+dash-table==3.1.11
+gunicorn==19.9.0
+mongoengine==0.16.3
+requests==2.21.0
