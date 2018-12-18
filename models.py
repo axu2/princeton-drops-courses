@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 from datetime import date
 import os
 
-host = os.getenv("MONGODB_URL")
+host = os.getenv("MONGODB_URI")
 
 connect("PrincetonDropsCourses", host=host)
 
