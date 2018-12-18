@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 from datetime import date
 
-host = "mongodb://heroku_rgf6gtph:3sarurfb6u2d322ppl2hsfqcl3@ds137340.mlab.com:37340/heroku_rgf6gtph"
+host = os.getenv("MONGODB_URL")
 
 connect("PrincetonDropsCourses", host=host)
 
