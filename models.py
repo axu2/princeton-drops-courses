@@ -2,6 +2,7 @@ from mongoengine import Document, IntField, StringField, ListField, DateField, c
 import requests
 from bs4 import BeautifulSoup
 from datetime import date
+import os
 
 host = os.getenv("MONGODB_URL")
 
