@@ -7,6 +7,7 @@ from datetime import datetime
 
 app = dash.Dash()
 server = app.server
+COS126 = 40038
 
 options = []
 for c in Course.objects():
@@ -18,7 +19,7 @@ app.layout = html.Div([
     dcc.Dropdown(
         id='my-dropdown',
         options=options,
-        value=40038
+        value=COS126
     ),
     dcc.Graph(id='my-graph')
 ])
