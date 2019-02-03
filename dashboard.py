@@ -10,7 +10,7 @@ server = app.server
 COS126 = 40038
 
 options = []
-for c in Course.objects().order_by('dept'):
+for c in Course.objects().order_by('num').order_by('dept'):
     name = c.dept + " " + c.num + ": " + c.title
     options.append({'label': name, 'value': c.course_id})
 
