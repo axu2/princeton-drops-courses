@@ -35,9 +35,8 @@ def main(term="1194"):
         
         course_id = cols[0][0]
 
-        try:
-            course = Course.objects(course_id=course_id).first()
-        except:
+        course = Course.objects(course_id=course_id).first()
+        if not course:
             dept, num = cols[1][0].split()
             course = Course(course_id=course_id, dept=dept, num=num, title=cols[2][0])
 
@@ -46,7 +45,7 @@ def main(term="1194"):
 
         if cols[9]:
             course.max_enroll.append(cols[9][0])
-
+            
         course.save()
 
 if __name__ == '__main__':
