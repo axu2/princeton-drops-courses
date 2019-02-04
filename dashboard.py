@@ -43,7 +43,7 @@ def update_graph(course_id):
     name = course.dept + " " + course.num + ": " + course.title
     return {
         'data': [{
-            'x': [dt.date() for dt in course.dates],
+            'x': course.dates,
             'y': course.enroll
         }],
         'layout': {
