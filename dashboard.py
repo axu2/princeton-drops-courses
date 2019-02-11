@@ -21,7 +21,7 @@ app.layout = html.Div([
             dcc.Markdown(
                 '''
                 ### Course Enrollment at Princeton University
-                A visualization of Princeton course enrollment over time. Data for COS and ORFE classes begins from Fall 2018, and data for all other classes begins from Spring 2019. All data was obtained by scraping the Registrar website daily.
+                A visualization of Princeton course enrollment over time during Spring 2019. All data was obtained by scraping the Registrar website daily.
                 '''.replace('  ', ''),
                 className='eight columns offset-by-two'
             )
