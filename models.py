@@ -32,21 +32,21 @@ def main(term="1194"):
     for dept in data:
         for course in dept['courses']:
             course_id = course['course_id']
-            course = Course.objects(course_id=course_id).first()
+            c = Course.objects(course_id=course_id).first()
 
-            if not course:
-                course = Course(course_id=course_id, 
+            if not c:
+                c = Course(course_id=course_id, 
                                 dept=dept['code'], 
                                 num=course['catalog_number'], 
                                 title=course['title'])
 
-            course.dates.append(date.today())
-            course.enroll.append(int(course['enrollment']))
+            c.dates.append(date.today())
+            c.enroll.append(int(course['enrollment']))
 
             if 'capacity' in course:
-                course.max_enroll.append(course['capacity'])
+                c.max_enroll.append(course['capacity'])
 
-            course.save()
+            c.save()
 
 
 if __name__ == '__main__':
