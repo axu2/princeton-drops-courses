@@ -26,27 +26,28 @@ class Course(Document):
     }
 
 def main(term="1194"):
-    url = "https://registrar.princeton.edu/course-offerings/search_results.xml?submit=Search&term=" + term
-    html = requests.get(url).text
-    soup = BeautifulSoup(html, 'html.parser')
+    url = "http://etcweb.princeton.edu/webfeeds/courseofferings/?fmt=json&term=current&subject=all"
+    data = requests.get(url).json()['term'][0]['subjects']
 
-    for row in soup.table.findAll('tr')[1:]:
-        cols = [list(col.stripped_strings) for col in row.findAll('td')]
-        
-        course_id = cols[0][0]
+    for dept in data:
+        for course in dept['courses']:
+            course_id = course['course_id']
+            course = Course.objects(course_id=course_id).first()
 
-        course = Course.objects(course_id=course_id).first()
-        if not course:
-            dept, num = cols[1][0].split()
-            course = Course(course_id=course_id, dept=dept, num=num, title=cols[2][0])
+            if not course:
+                course = Course(course_id=course_id, 
+                                dept=dept['code'], 
+                                num=course['catalog_number'], 
+                                title=course['title'])
 
-        course.dates.append(date.today())
-        course.enroll.append(cols[8][0])
+            course.dates.append(date.today())
+            course.enroll.append(int(course['enrollment']))
 
-        if cols[9]:
-            course.max_enroll.append(cols[9][0])
-            
-        course.save()
+            if 'capacity' in course:
+                course.max_enroll.append(course['capacity'])
+
+            course.save()
+
 
 if __name__ == '__main__':
     main()
