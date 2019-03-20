@@ -11,7 +11,7 @@ class Course(Document):
     course_id = IntField()
 
     dept = StringField(max_length=3, min_length=3)
-    num = StringField(max_length=4, min_length=3)
+    num = StringField(max_length=4)
 
     title = StringField()
 
@@ -31,21 +31,24 @@ def main(term="1194"):
 
     for dept in data:
         for course in dept['courses']:
-            course_id = course['course_id']
+            # course_id = course['course_id']
+            course_id = course['classes'][0]['class_number']
             c = Course.objects(course_id=course_id).first()
 
             if not c:
                 c = Course(course_id=course_id, 
-                                dept=dept['code'], 
-                                num=course['catalog_number'], 
-                                title=course['title'])
+                           dept=dept['code'], 
+                           num=course['catalog_number'], 
+                           title=course['title'])
 
             c.dates.append(date.today())
-            c.enroll.append(int(course['enrollment']))
+            enroll = course['classes'][0]
+            if 'enrollment' in enroll :
+                c.enroll.append(int(enroll['enrollment']))
 
-            if 'capacity' in course:
-                c.max_enroll.append(course['capacity'])
-
+            if 'capacity' in enroll:
+                c.max_enroll.append(int(enroll['capacity']))
+            
             c.save()
 
 
